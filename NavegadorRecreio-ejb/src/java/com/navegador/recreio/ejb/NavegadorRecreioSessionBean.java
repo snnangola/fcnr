@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package com.navegador.recreio.ejb;
-
+ 
 import com.navegador.recreio.entity.Categoria;
 import com.navegador.recreio.entity.Competencia;
 import com.navegador.recreio.entity.NavegadorRecreio;
@@ -140,7 +140,7 @@ public Categoria retornaCategoria(String catDesc){
 
    Query pedido = em.createNamedQuery("Categoria.findByCategoriaCategoriaNavegadorRecreio", Categoria.class)
            .setParameter("categoriaCategoriaNavegadorRecreio", catDesc);
-   //Quero teste para verificar se objecto est]a nulo ou nao
+   //Quero teste para verificar se objecto esta nulo ou nao
        
        return (Categoria) pedido.getSingleResult();
 }
@@ -255,19 +255,19 @@ public List<Categoria> listarTodasCategoriasPorNome(String nomeCategoria) {
           nav.setNomeCompletoNavegadorRecreio(navegadorRecreio.getNomeCompletoNavegadorRecreio());
           nav.setNumeroCartaNavegadorRecreio(navegadorRecreio.getNumeroCartaNavegadorRecreio());
       
-          //try{
+          try{
           
           em.getTransaction().commit();
-          //sendJMSMessageToNotificationQueue(navegadorRecreio);
+          sendJMSMessageToNotificationQueue(navegadorRecreio);
  
       
-     // }
-     // catch(JMSException ex)
-     // {
+     }
+     catch(JMSException ex)
+     {
           
-       //   Logger.getLogger(NavegadorRecreioSessionBean.class.getName()).log(Level.SEVERE, null, ex);  
+         Logger.getLogger(NavegadorRecreioSessionBean.class.getName()).log(Level.SEVERE, null, ex);  
             
-     // }
+     }
         return nav;
     }
 
@@ -279,9 +279,9 @@ public NavegadorRecreio modificaNavegador() {
     }
     
     
-   // private void sendJMSMessageToNotificationQueue(String messageData) {
-     //   context.createProducer().send(notificationQueue, messageData);
-    //}
+    private void sendJMSMessageToNotificationQueue(String messageData) {
+       context.createProducer().send(notificationQueue, messageData);
+    }
 
 
 private Message createJMSMessageForjmsNotificationQueue(Session session, Object messageData) throws JMSException{  
