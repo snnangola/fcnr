@@ -257,7 +257,7 @@ public List<Categoria> listarTodasCategoriasPorNome(String nomeCategoria) {
       
           try{
           
-          em.getTransaction().commit();
+         // em.getTransaction().commit();
           sendJMSMessageToNotificationQueue(navegadorRecreio);
  
       
