@@ -22,10 +22,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import javax.servlet.http.Part;
+//import javax.servlet.http.Part;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -39,6 +40,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "NavegadorRecreio.findByIdNavegadorRecreio", query = "SELECT n FROM NavegadorRecreio n WHERE n.navegadorRecreioPK.idNavegadorRecreio = :idNavegadorRecreio"),
     @NamedQuery(name = "NavegadorRecreio.findByNomeCompletoNavegadorRecreio", query = "SELECT n FROM NavegadorRecreio n WHERE n.nomeCompletoNavegadorRecreio = :nomeCompletoNavegadorRecreio"),
     @NamedQuery(name = "NavegadorRecreio.findByMoradaNavegadorRecreio", query = "SELECT n FROM NavegadorRecreio n WHERE n.moradaNavegadorRecreio = :moradaNavegadorRecreio"),
+    @NamedQuery(name = "NavegadorRecreio.findByNrIDNavegadorRecreio", query = "SELECT n FROM NavegadorRecreio n WHERE n.informacaoAdicional = :informacaoAdicional"),
     @NamedQuery(name = "NavegadorRecreio.findByNumeroCartaNavegadorRecreio", query = "SELECT n FROM NavegadorRecreio n WHERE n.numeroCartaNavegadorRecreio = :numeroCartaNavegadorRecreio"),
     @NamedQuery(name = "NavegadorRecreio.findByDataValidadeCartaNavegadorRecreio", query = "SELECT n FROM NavegadorRecreio n WHERE n.dataValidadeCartaNavegadorRecreio = :dataValidadeCartaNavegadorRecreio"),
     @NamedQuery(name = "NavegadorRecreio.findByCategoriaIdCategoria", query = "SELECT n FROM NavegadorRecreio n WHERE n.navegadorRecreioPK.categoriaIdCategoria = :categoriaIdCategoria"),
@@ -105,9 +107,18 @@ public class NavegadorRecreio implements Serializable {
         @JoinColumn(name = "categoria_competencia_id_competencia", referencedColumnName = "competencia_id_competencia", insertable = false, updatable = false)})
     private Categoria categoria;
     //@Transient para evitar gravacao na base de dados
-    @Transient private Part fotoUpload;
+   // @Transient private Part fotoUpload;
+    @Transient private UploadedFile fotoUpload;
+    @Transient private UploadedFile copiaBiUpload;
+    @Transient private UploadedFile copiaCartaoContribuinteUpload;
+    @Transient private UploadedFile reciboPagamentoTaxaInscricaoUpload;
+    @Transient private UploadedFile atestadoMedicoUpload;
+    @Transient private UploadedFile autorizacaoTutorUpload;
+    @Transient private UploadedFile declaracaoFormacaoUpload;
     @Transient private String pegaCategoria; 
     @Transient private String pegaCompetencia;
+
+    
 
     
 
@@ -201,13 +212,13 @@ public class NavegadorRecreio implements Serializable {
         this.categoria = categoria;
     }
     
-    public void setFotoUpload(Part fotoUpload)
+    public void setFotoUpload(UploadedFile fotoUpload)
     {
         this.fotoUpload = fotoUpload;
     
     }
     
-    public Part getFotoUpload()
+    public UploadedFile getFotoUpload()
     {
             return fotoUpload;
     }
@@ -332,7 +343,53 @@ public class NavegadorRecreio implements Serializable {
     public void setInformacaoAdicional(String informacaoAdicional) {
         this.informacaoAdicional = informacaoAdicional;
     }
+public UploadedFile getCopiaBiUpload() {
+        return copiaBiUpload;
+    }
 
+    public void setCopiaBiUpload(UploadedFile copiaBiUpload) {
+        this.copiaBiUpload = copiaBiUpload;
+    }
+
+    public UploadedFile getCopiaCartaoContribuinteUpload() {
+        return copiaCartaoContribuinteUpload;
+    }
+
+    public void setCopiaCartaoContribuinteUpload(UploadedFile copiaCartaoContribuinteUpload) {
+        this.copiaCartaoContribuinteUpload = copiaCartaoContribuinteUpload;
+    }
+
+    public UploadedFile getReciboPagamentoTaxaInscricaoUpload() {
+        return reciboPagamentoTaxaInscricaoUpload;
+    }
+
+    public void setReciboPagamentoTaxaInscricaoUpload(UploadedFile reciboPagamentoTaxaInscricaoUpload) {
+        this.reciboPagamentoTaxaInscricaoUpload = reciboPagamentoTaxaInscricaoUpload;
+    }
+
+    public UploadedFile getAtestadoMedicoUpload() {
+        return atestadoMedicoUpload;
+    }
+
+    public void setAtestadoMedicoUpload(UploadedFile atestadoMedicoUpload) {
+        this.atestadoMedicoUpload = atestadoMedicoUpload;
+    }
+
+    public UploadedFile getAutorizacaoTutorUpload() {
+        return autorizacaoTutorUpload;
+    }
+
+    public void setAutorizacaoTutorUpload(UploadedFile autorizacaoTutorUpload) {
+        this.autorizacaoTutorUpload = autorizacaoTutorUpload;
+    }
+
+    public UploadedFile getDeclaracaoFormacaoUpload() {
+        return declaracaoFormacaoUpload;
+    }
+
+    public void setDeclaracaoFormacaoUpload(UploadedFile declaracaoFormacaoUpload) {
+        this.declaracaoFormacaoUpload = declaracaoFormacaoUpload;
+    }
 
 
   

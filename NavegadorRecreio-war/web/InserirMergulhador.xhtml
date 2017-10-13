@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"               
+      xmlns:h="http://xmlns.jcp.org/jsf/html"      
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions">
+    
+   
+  <body>
+
+        <ui:composition template="Template.xhtml">
+
+            <ui:define name="content">
+                   <div class="jumbotron" >
+          <div class="container" >   
+        <div class="ui-fluid">
+            
+<!--   <p:layout style="width:900px;height:800px">
+          <p:layoutUnit position="north" style="border-color: transparent" ></p:layoutUnit>
+
+    <p:layoutUnit position="center" id="centro" style="border-color: transparent; height: 2000px"> -->
+               
+ <h1><h:outputText value="Cadastrar Mergulhador Amador"/></h1>
+ 
+         <f:view>
+           <h:form enctype="multipart/form-data">
+        
+
+        <p:accordionPanel value="Registo de Mergulhadores Amadores" id="painel" multiple="true">       
+                     
+            <p:tab closable="yes" 
+                   id="dadosprincipais" 
+                   title="1 - Dados Principais" 
+                   titletip="Dados Principais" 
+                   titleStyle="color: #000000;text-shadow: 0px 0px 0px #000000"  >
+                <p:focus/>
+               <!-- <p:messages autoUpdate="true" /> -->
+                <p:panelGrid   
+                    columns="3" 
+                    id="painel1" layout="grid"
+                    >
+                 <p:outputLabel value="Nome Completo:" for="nomeMegulhador" />
+                       <p:inputText id="nomeMegulhador" 
+                                    value="#{mergulhadores.mergulhadores.nomeMegulhador}" 
+                                    title="NomeMegulhador" 
+                                    required="true">
+                            <f:validateLength minimum="4" maximum="50"  />
+                            <p:clientValidator event="keyup"/>
+                            <p:ajax update="nomeMegulhador"  />            
+                       </p:inputText>
+                            <p:message for="nomeMegulhador"  display="both" />
+                            
+                <p:outputLabel value="Morada:" for="moradaMergulhador" />
+                       <p:inputText id="moradaMergulhador" 
+                                    value="#{mergulhadores.mergulhadores.moradaMergulhador}" 
+                                    title="MoradaMergulhador" 
+                                    required="true" 
+                                    size="40" >
+                       <f:validateLength minimum="4" maximum="40"  />
+                       <p:clientValidator event="keyup"/>
+                       <p:ajax update="moradaMergulhador"/>
+                       </p:inputText>
+                       <p:message for="moradaMergulhador" display="both" />
+                       
+                       <p:outputLabel value="ID(Bilhete, Passaporte):" for="biMergulhador" />
+                       <p:inputText id="biMergulhador" 
+                                    value="#{mergulhadores.mergulhadores.biMergulhador}" 
+                                    title="BiMergulhador" 
+                                    required="true" 
+                                    size="40" >
+                        <f:validateLength minimum="3" maximum="25"/>
+                        <p:clientValidator event="keyup"/>
+                        <p:ajax update="biMergulhador" />
+                       </p:inputText>
+                       <p:message for="biMergulhador" display="both" />
+                       
+                        <p:outputLabel value="Nr Fiscal:" for="nifMergulhador" />
+                       <p:inputText id="nifMergulhador" 
+                                    value="#{mergulhadores.mergulhadores.nifMergulhador}" 
+                                    title="NifMergulhador" 
+                                    required="true" 
+                                    size="40">
+                        <f:validateLength minimum="3" maximum="25"/>
+                        <p:clientValidator event="keyup"/>
+                        <p:ajax update="nifMergulhador" />
+                       </p:inputText>
+                       <p:message for="nifMergulhador" display="both" />
+                       
+                       <p:outputLabel value="Numero da Licenca:" for="numeroLicencaMergulhador" />
+                       <p:inputText id="numeroLicencaMergulhador" 
+                                    value="#{mergulhadores.mergulhadores.numeroLicencaMergulhador}" 
+                                    title="NumeroLicencaMergulhador"
+                                    required="true" 
+                                    size="40"
+                                    >
+                       <f:validateLength minimum="3" maximum="25"/>
+                       <p:clientValidator event="keyup"/>
+                       <p:ajax update="numeroLicencaMergulhador" />
+                       </p:inputText>
+                       <p:message for="numeroLicencaMergulhador" display="both" />
+                  
+                            
+                     </p:panelGrid>  
+               <!-- <p:outputLabel value="IdMergulhadores:" for="mergulhadoresPK.idMergulhadores" /> -->
+                 <!--   <p:inputText id="mergulhadoresPK.idMergulhadores" value="#{mergulhadores.mergulhadores.mergulhadoresPK.idMergulhadores}" title="IdMergulhadores" required="true" requiredMessage="The IdMergulhadores field is required."/> -->    
+                 
+                       </p:tab>
+            
+                        <p:tab  closable="yes" 
+                                id="documentacao" 
+                                title="2 - Anexar Documentacao" 
+                                titletip="Anexar Documentacao" 
+                                titleStyle="color: #000000;text-shadow: 0px 0px 0px #000000"  >
+
+                            <!-- Dados anexos -->
+       
+
+                        <p:panelGrid columns="3" 
+                                     layout="grid">
+                            
+                       <p:outputLabel value="Titulo do Mergulhador:" for="tituloMergulhoMergulhador" />
+                       <p:fileUpload id="tituloMergulhoMergulhador" 
+                             value="#{mergulhadores.mergulhadores.tituloMergulhoMergulhador}" 
+                             mode="simple"          
+                             skinSimple="true" 
+                             required="true" 
+                             requiredMessage="Obrigatorio submeter titulo de mergulho amador."
+                             sizeLimit="16000000"
+                             invalidSizeMessage="Tamanho do arquivo superior a 16 MegaBytes"
+                             allowTypes="/(\.|\/)(pdf)$/"
+                             >
+                        </p:fileUpload>
+                        <p:message for="tituloMergulhoMergulhador" display="both" />
+                      
+                       <p:outputLabel value="Tipo de Licenca:" for="tipoLicencaMergulhador" />
+                       <p:selectOneMenu id="tipoLicencaMergulhador" 
+                                        value="#{mergulhadores.mergulhadores.tipoLicencaMergulhador}" 
+                                        title="TipoLicencaMergulhador" 
+                                        required="true" 
+                                        requiredMessage="The TipoLicencaMergulhador field is required."
+                                        converter="omnifaces.SelectItemsConverter">
+                           <!-- TODO: update below reference to list of available items-->
+                           <f:selectItems value="#{mergulhadores}"/>
+                       </p:selectOneMenu>
+                       <p:message for="tipoLicencaMergulhador" display="both" />
+                       
+                       <p:outputLabel value="Apólice de Seguro de Acidentes Pessoais:" for="seguroAcidentesPessoaisMergulhador" />
+                       
+                       <p:fileUpload id="seguroAcidentesPessoaisMergulhador" 
+                             value="#{mergulhadores.mergulhadores.seguroAcidentesPessoaisMergulhador}" 
+                             mode="simple"          
+                             skinSimple="true" 
+                             required="true" 
+                             requiredMessage="Obrigatorio submeter apólice de seguro de acidentes pessoais."
+                             sizeLimit="16000000"
+                             invalidSizeMessage="Tamanho do arquivo superior a 16 MegaBytes"
+                             allowTypes="/(\.|\/)(pdf)$/"
+                             >
+                        </p:fileUpload>
+                        <p:message for="seguroAcidentesPessoaisMergulhador" display="both" />
+                      
+                        
+                        
+                        </p:panelGrid>
+                 
+
+			<!-- Dados anexos -->
+                        </p:tab> 
+            
+                        <p:tab   closable="yes" 
+                                 id="dadosadicionais" 
+                                 title="3 - Finalizar Processo" 
+                                 titletip="Finalizar Processo" 
+                                 titleStyle="color: #000000;text-shadow: 0px 0px 0px #000000" >
+                <p:panelGrid columns="2" layout="grid">
+                       <p:outputLabel value="Correio Electronico:" for="emailMergulhador" />
+                       <p:inputText id="emailMergulhador" value="#{mergulhadores.mergulhadores.emailMergulhador}" title="EmailMergulhador" />
+                       
+                       <p:outputLabel value="Telefone:" for="telefoneMergulhador" />
+                       <p:inputMask id="telefoneMergulhador" 
+                                    value="#{mergulhadores.mergulhadores.telefoneMergulhador}" 
+                                    title="TelefoneMergulhador"
+                                    mask="999-999-999"
+                                    label="telefone"
+                                    />
+                       <f:facet name="footer">
+                       <p:commandButton id="insert" 
+                                        value="Registrar" 
+                                        update="painel"
+                                        action="#{navegadorRecreio.inserirNavegadorRecreio()}" 
+                                        icon="ui-icon-check" 
+                                        ajax="false"  
+                                        validateClient="true"/>
+                       </f:facet>
+                       
+                   </p:panelGrid>
+                    </p:tab>
+            
+            
+                </p:accordionPanel>
+               
+          
+                    </h:form> 
+                
+              
+                
+                </f:view>
+    </div>
+    
+                        
+       
+                      
+ <!-- </p:layoutUnit> -->
+          
+ <!--   <p:layoutUnit position="south" visible="false">
+        
+
+    </p:layoutUnit>  
+
+//more layout units
+</p:layout>             -->
+
+
+          <!-- jQuery (necessary for Bootstrap's JavaScript plugins) 
+          <script src="resources/js/jquery-3.1.0.min.js"></script>-->
+          <!-- Include all compiled plugins (below), or include individual files as needed -->
+          <script src="resources/js/bootstrap.js"></script>
+
+        </div>
+        </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

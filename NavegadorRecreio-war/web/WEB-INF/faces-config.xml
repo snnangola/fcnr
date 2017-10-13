@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+
+    
+    
+    
+    <managed-bean>
+        <managed-bean-name>NavegadorRecreio</managed-bean-name>
+        <managed-bean-class>com.navegador.recreio.web</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>Associacoes</managed-bean-name>
+        <managed-bean-class>com.navegador.recreio.web</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    <navigation-rule>
+          <from-view-id>/ListarTodosNavegadoresRecreio.xhtml</from-view-id>
+            <navigation-case>
+                <from-outcome>DETALHESNAVEGADOR</from-outcome>
+                <to-view-id>/DetalhesNavegador.xhtml</to-view-id>
+            </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/DetalhesNavegador.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>LISTARTODOSNAVEGADORESRECREIO</from-outcome>
+            <to-view-id>/ListarTodosNavegadoresRecreio.xhtml</to-view-id>
+        </navigation-case>      
+    </navigation-rule>  
+    
+      <navigation-rule>
+        <from-view-id>/InserirNavegador.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>LISTARTODOSNAVEGADORESRECREIO</from-outcome>
+            <to-view-id>/ListarTodosNavegadoresRecreio.xhtml</to-view-id>
+        </navigation-case>      
+    </navigation-rule>   
+    
+    <navigation-rule>
+        <from-view-id>/InserirCompetencia.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>LISTARTODOSNAVEGADORESRECREIO</from-outcome>
+            <to-view-id>/ListarTodosNavegadoresRecreio.xhtml</to-view-id>
+        </navigation-case>      
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/InserirCategoria.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>LISTARTODOSNAVEGADORESRECREIO</from-outcome>
+            <to-view-id>/ListarTodosNavegadoresRecreio.xhtml</to-view-id>
+        </navigation-case>      
+    </navigation-rule>
+    <managed-bean>
+        <managed-bean-name>navegadorRecreioMBean</managed-bean-name>
+        <managed-bean-class>com.navegador.recreio.web.NavegadorRecreioMBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>associacoesMBean</managed-bean-name>
+        <managed-bean-class>com.navegador.recreio.web.AssociacoesMBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+</faces-config>
+
+
+    

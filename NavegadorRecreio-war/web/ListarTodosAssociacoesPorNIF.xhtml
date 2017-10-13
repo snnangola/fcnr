@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"               
+      xmlns:h="http://xmlns.jcp.org/jsf/html"      
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions">
+    
+   <body>
+
+        <ui:composition template="Template.xhtml">
+
+            <ui:define name="content">
+                   <div class="jumbotron">
+          <div class="container">  
+              
+              
+        <div class="ui-fluid">
+              
+              <f:view>
+
+
+        <h:form enctype="multipart/form-data">
+        
+            <h1><h:outputText value="Listagem de Associacao por Numero Identificacao Fiscal"/></h1>
+            
+               
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:messages autoUpdate="true" showDetail="true"/>
+                    <p:inputText id="nifAssociacao" 
+                                 value="#{associacoes.associacoes.nifAssociacao}"
+                                 required="true"
+                                 />
+            
+   
+                </p:toolbarGroup>  
+                <p:toolbarGroup>
+                   
+                     <p:separator/> 
+            
+   
+                </p:toolbarGroup> 
+            
+                
+                <p:toolbarGroup>
+                   
+              
+                  <p:commandButton value="Pesquisar" 
+                                   icon="ui-icon-check" 
+                                   action="#{associacoes.listarAssociacaoPorNIFAssociacao()}"
+                                   update="listarTodosAssociacoesPorNIF"/>
+   
+                </p:toolbarGroup> 
+                
+            </p:toolbar>
+               
+           
+                
+                <p:separator/>
+                
+                
+                
+                <p:dataTable value = "#{associacoes.listaAssociacaoPorNIF}"
+                             var="item" 
+                             id="listarTodosAssociacoesPorNIF" 
+                             paginator="true" 
+                             rows="1" 
+                             reflow="true">
+                <p:column width="170">
+                    <f:facet name="header">
+                        <h:outputText value="Listagem Nr."/>
+                    </f:facet>
+                 <!--  <h:outputText value="#{item.idAssociacoes}"/> -->
+                    
+                    <h:commandLink action="#{navegadorRecreio.showAssociacoesPorListagemID(item.idAssociacoes)}" 
+                                 value="Consultar Cadastro" target="_blank"  />
+                    
+                </p:column>
+                
+                <p:column width="170">
+                    <f:facet name="header">
+                        <h:outputText value="Gerar relatorio"/>
+                    </f:facet>
+                     
+                      
+             <p:link 
+                 href="http://localhost:43821/NavegadorRecreio-war/plugins/PDFServlet?idGeral=#{item.idAssociacoes}&amp;comando=ASSOCIACOES" 
+                 target="_blank">
+                 <h:graphicImage value="resources/images/icons/Adobe_PDF_file_icon_32x32.png" />
+             </p:link>
+                    
+              
+                </p:column>
+                
+                <p:column id="nomeAssociacao"
+                          filterBy="#{item.nomeAssociacao}"
+                          sortBy="#{item.nomeAssociacao}" width="170">
+                    <f:facet name="header">
+                        <h:outputText value="Nome Associacao"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nomeAssociacao}"/>
+                </p:column>
+                
+                <p:column id="tipoAssociacao" width="170">
+                    <f:facet name="header">                        
+                        <h:outputText value="Tipo Associacao" />
+                    </f:facet>           
+                    <h:outputText value="#{item.tipoAssociacao}"/>
+                </p:column>
+                
+                <p:column width="170">
+                    <f:facet name="header">
+                        <h:outputText value="Localizacao Associacao"/>
+                    </f:facet>
+                    <h:outputText value="#{item.localizacaoAssociacao}"/>
+                </p:column>
+                <p:column width="170">
+                    <f:facet name="header">
+                        <h:outputText value="Coordenadas Geograficas"/>
+                    </f:facet>
+                    <p:link href="https://www.google.com/maps/@?api=1&amp;map_action=map&amp;map_action_map=map&amp;center=#{item.coordenadasAssociacao}&amp;zoom=19&amp;basemap=satellite"
+                            target="_blank">
+                        <h:outputText value="#{item.coordenadasAssociacao}"/>
+                    </p:link>
+                </p:column>
+                <p:column id="nifAssociacao"
+                          filterBy="#{item.nifAssociacao}"
+                          sortBy="#{item.nifAssociacao}" 
+                          width="170">
+                    <f:facet name="header">
+                        <h:outputText value="Numero Contriuinte"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nifAssociacao}"/>
+                </p:column>
+                
+               <p:column width="170">
+                    <f:facet name="header">
+                        <h:outputText value="Foto"/>
+                    </f:facet>
+                   
+                   <p:link href="/#{item.fotografiaAssociacao}" target="_blank" >
+                      <p:graphicImage  value="resources/images/icons/JPG_file_icon_24x24.png" />
+                   </p:link> 
+                   
+                <!--<p:dialog id="fotografiaAssociacao" header="Imagem da estrutura"   widgetVar="dlg" modal="true" > -->                      
+                                                        
+                 <!--       </p:dialog> -->
+                   
+                </p:column>
+                
+                <p:column width="170"> 
+                    <f:facet name="header">
+                        <h:outputText value="Data Expiracao Certificado"/>
+                    </f:facet>
+                    <h:outputText value="#{item.dataExpiracaoAssociacao}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+                 <p:column width="170">
+                    <f:facet name="header">
+                        <h:outputText value="Status Certificado"/>
+                    </f:facet>
+                    <h:outputText value="#{item.statusAssociacao}"/>
+                </p:column>
+                
+                <p:column width="170">
+                    <f:facet name="header">
+                        <h:outputText value="Requerimento"/>
+                    </f:facet>
+                    
+                  <!--  <h:outputText value="#{item.requerimentoAssociacao}"/> -->
+                    
+             <p:link 
+                 href="/#{item.requerimentoAssociacao}" 
+                 target="_blank">
+                 <h:graphicImage value="resources/images/icons/Adobe_PDF_file_icon_24x24.png" />
+             </p:link>
+                    
+                </p:column>
+                <p:column width="170">
+                    <f:facet name="header">
+                        <h:outputText value="Copia Estatuto"/>
+                    </f:facet>
+                   <!-- <h:outputText value="#{item.copiaEstatutoAssociacao}"/> -->
+                    
+                     <p:link 
+                 href="/#{item.copiaEstatutoAssociacao}" 
+                 target="_blank">
+                 <h:graphicImage value="resources/images/icons/Adobe_PDF_file_icon_24x24.png" />
+             </p:link>
+                    
+                    
+                </p:column>
+                <p:column width="170">
+                    <f:facet name="header">
+                        <h:outputText value="Memoria Descritiva"/>
+                    </f:facet>
+                  <!--  <h:outputText value="#{item.memoriaDescritivaAssociacao}"/> -->
+                    
+                    <p:link 
+                 href="/#{item.memoriaDescritivaAssociacao}" 
+                 target="_blank">
+                 <h:graphicImage value="resources/images/icons/Adobe_PDF_file_icon_24x24.png" />
+             </p:link>
+                    
+                </p:column>
+                <p:column width="170">
+                    <f:facet name="header">
+                        <h:outputText value="Plano Infraestrutura"/>
+                    </f:facet>
+                   <!-- <h:outputText value="#{item.planoInfraestruturaAssociacao}"/> -->
+                    
+                    <p:link 
+                 href="/#{item.planoInfraestruturaAssociacao}" 
+                 target="_blank">
+                 <h:graphicImage value="resources/images/icons/Adobe_PDF_file_icon_24x24.png" />
+             </p:link>
+                </p:column>
+                
+                <p:column width="170">
+                    <f:facet name="header">
+                        <h:outputText value="Documento Aquisicao Local"/>
+                    </f:facet>
+                    <!-- <h:outputText value="#{item.documentoAquisicaoAssociacao}"/> -->
+                     <p:link 
+                 href="/#{item.documentoAquisicaoAssociacao}" 
+                 target="_blank">
+                 <h:graphicImage value="resources/images/icons/Adobe_PDF_file_icon_24x24.png" />
+             </p:link>
+                    
+                </p:column>
+                <p:column width="170">
+                    <f:facet name="header">
+                        <h:outputText value="Certificado Emitido"/>
+                    </f:facet>
+                  <!--  <h:outputText value="#{item.certificadoAssociacao}"/> -->
+                    
+                    <p:link 
+                 href="/#{item.certificadoAssociacao}" 
+                 target="_blank">
+                 <h:graphicImage value="resources/images/icons/Adobe_PDF_file_icon_24x24.png" />
+             </p:link>
+                    
+                </p:column>
+                
+               
+
+                
+                
+                
+                
+            </p:dataTable>
+            
+           
+            
+        </h:form>
+    
+    </f:view>
+                  
+                  </div>
+
+
+
+
+
+
+          <!-- jQuery (necessary for Bootstrap's JavaScript plugins) 
+          <script src="resources/js/jquery-3.1.0.min.js"></script>-->
+          <!-- Include all compiled plugins (below), or include individual files as needed -->
+          <script src="resources/js/bootstrap.js"></script>
+
+        </div>
+        </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+  
+
+</html>

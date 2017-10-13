@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"               
+      xmlns:h="http://xmlns.jcp.org/jsf/html"      
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions">
+    
+   <body>
+
+        <ui:composition template="Template.xhtml">
+
+            <ui:define name="content">
+                   <div class="jumbotron">
+          <div class="container">  
+              
+              
+        <div class="ui-fluid">
+              
+              <f:view>
+
+
+        <h:form enctype="multipart/form-data">
+        
+            <h1><h:outputText value="Listagem de Embarcacao por Número Matrícula"/></h1>
+            
+               
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:messages autoUpdate="true" showDetail="true"/>
+                    <p:inputText id="matriculaEmbarcacao" 
+                                 value="#{embarcacoes.embarcacoes.matriculaEmbarcacao}"
+                                 required="true"
+                                 />
+            
+   
+                </p:toolbarGroup>  
+                <p:toolbarGroup>
+                   
+                     <p:separator/> 
+            
+   
+                </p:toolbarGroup> 
+            
+                
+                <p:toolbarGroup>
+                   
+              
+                  <p:commandButton value="Pesquisar" 
+                                   icon="ui-icon-check" 
+                                   action="#{embarcacoes.listarEmbarcacaoPorMatricula()}"
+                                   update="listarTodosEmbarcacoesPorMatricula"/>
+   
+                </p:toolbarGroup> 
+                
+            </p:toolbar>
+               
+           
+                
+                <p:separator/>
+                
+                
+                <p:scrollPanel mode="native">
+                    <p:dataTable value="#{embarcacoes.listaEmbarcacaoPorMatricula}" 
+                                 id="listarTodosEmbarcacoesPorMatricula"
+                                 var="item"
+                                 paginator="true" 
+                                 rows="3"  
+                                 reflow="true"                   
+                                 scrollable="true" 
+                                >
+                        <p:column width="170">
+                            <f:facet name="header">
+                                <h:outputText value="Listagem Nr."/>
+                            </f:facet>
+                            
+                              <h:commandLink action="#{navegadorRecreio.showEmbarcacoesPorListagemID(item.embarcacoesPK.idEmbarcacoes)}" 
+                                 value="Consultar Cadastro" target="_blank"  />
+                            
+                        </p:column>
+                        
+                        <p:column width="170">
+                    <f:facet name="header">
+                        <h:outputText value="Gerar relatorio"/>
+                    </f:facet>
+             <p:link 
+                 href="http://localhost:43821/NavegadorRecreio-war/plugins/PDFServlet?idGeral=#{item.embarcacoesPK.idEmbarcacoes}&amp;idCategoria=#{item.embarcacoesPK.idEmbarcacoes}&amp;comando=EMBARCACAO" 
+                 target="_blank">
+                 <h:graphicImage value="resources/images/icons/Adobe_PDF_file_icon_32x32.png" />
+             </p:link>
+                </p:column>
+                        <p:column width="170">
+                            <f:facet name="header">
+                                <h:outputText value="Status do Processo"/>
+                            </f:facet>
+                            <h:outputText value="#{item.statusEmbarcacao}"/>
+                        </p:column>
+                        <p:column width="170">
+                            <f:facet name="header">
+                                <h:outputText value="Porto de Registo"/>
+                            </f:facet>
+                            <h:outputText value="#{item.portoRegistoEmbarcacao}"/>
+                        </p:column>
+                        <p:column width="170">
+                            <f:facet name="header">
+                                <h:outputText value="Nome da Embarcacao"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nomeEmbarcacao}"/>
+                        </p:column>
+                        <p:column width="170" 
+                                  filterBy="#{item.nomeProprietarioEmbarcacao}" 
+                                  sortBy="#{item.nomeProprietarioEmbarcacao}">
+                            <f:facet name="header">
+                                <h:outputText value="Nome do Proprietario"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nomeProprietarioEmbarcacao}"/>
+                        </p:column>
+                        <p:column width="170" 
+                                  filterBy="#{item.biProprietarioEmbarcacao}" 
+                                  sortBy="#{item.biProprietarioEmbarcacao}">
+                            <f:facet name="header">
+                                <h:outputText value="BI do Proprietario"/>
+                            </f:facet>
+                            <h:outputText value="#{item.biProprietarioEmbarcacao}"/>
+                        </p:column>
+                        <p:column width="170" 
+                                  filterBy="#{item.nifProprietarioEmbarcacao}" 
+                                  sortBy="#{item.nifProprietarioEmbarcacao}">
+                            <f:facet name="header">
+                                <h:outputText value="NIF do Proprietario"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nifProprietarioEmbarcacao}"/>
+                        </p:column>
+                        <p:column width="170">
+                            <f:facet name="header">
+                                <h:outputText value="Pedido de Registo"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pedidoRegistoEmbarcacao}"/>
+                        </p:column>
+                        <p:column width="170">
+                            <f:facet name="header">
+                                <h:outputText value="Titulo de Aquisicao"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tituloAquisicaoEmbarcacao}"/>
+                        </p:column>
+                        <p:column width="170">
+                            <f:facet name="header">
+                                <h:outputText value="Classificacao"/>
+                            </f:facet>
+                            <h:outputText value="#{item.classificacaoEmbarcacao}"/>
+                        </p:column>
+                        <p:column width="170" 
+                                  filterBy="#{item.matriculaEmbarcacao}" 
+                                  sortBy="#{item.matriculaEmbarcacao}">
+                            <f:facet name="header">
+                                <h:outputText value="Matricula"/>
+                            </f:facet>
+                            <h:outputText value="#{item.matriculaEmbarcacao}"/>
+                        </p:column>
+                        <p:column width="170">
+                            <f:facet name="header">
+                                <h:outputText value="Comprimento"/>
+                            </f:facet>
+                            <h:outputText value="#{item.comprimentoEmbarcacao}"/>
+                        </p:column>
+                        <p:column width="170">
+                            <f:facet name="header">
+                                <h:outputText value="Boca"/>
+                            </f:facet>
+                            <h:outputText value="#{item.bocaEmbarcacao}"/>
+                        </p:column>
+                        <p:column width="170">
+                            <f:facet name="header">
+                                <h:outputText value="Pontal"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pontalEmbarcacao}"/>
+                        </p:column>
+                        <p:column width="170">
+                            <f:facet name="header">
+                                <h:outputText value="Arqueacao"/>
+                            </f:facet>
+                            <h:outputText value="#{item.arqueacaoEmbarcacao}"/>
+                        </p:column>
+                        <p:column width="170">
+                            <f:facet name="header">
+                                <h:outputText value="Lotacao Maxima"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lotacaoMaximaEmbarcacao}"/>
+                        </p:column>
+                        <p:column width="170">
+                            <f:facet name="header">
+                                <h:outputText value="Cor do Casco"/>
+                            </f:facet>
+                            <h:outputText value="#{item.corCascoEmbarcacao}"/>
+                        </p:column>
+                        <p:column width="170">
+                            <f:facet name="header">
+                                <h:outputText value="Material do Casco"/>
+                            </f:facet>
+                            <h:outputText value="#{item.materialCascoEmbarcacao}"/>
+                        </p:column>
+                        <p:column width="170">
+                            <f:facet name="header">
+                                <h:outputText value="Cor da Super-Estrutura"/>
+                            </f:facet>
+                            <h:outputText value="#{item.corSuperestruturaEmbarcacao}"/>
+                        </p:column>
+                        <p:column width="170">
+                            <f:facet name="header">
+                                <h:outputText value="Modelo de Construcao"/>
+                            </f:facet>
+                            <h:outputText value="#{item.modeloConstrucaoEmbarcacao}"/>
+                        </p:column>
+                        <p:column width="170">
+                            <f:facet name="header">
+                                <h:outputText value="Numero Construcao"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numeroConstrucaoEmbarcacao}"/>
+                        </p:column>
+                        <p:column width="170">
+                            <f:facet name="header">
+                                <h:outputText value="Data Construcao"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dataConstrucaoEmbarcacao}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column width="170">
+                            <f:facet name="header">
+                                <h:outputText value="Equipamento Telecomunicacoes"/>
+                            </f:facet>
+                            <p:link 
+                                href="/#{item.equipamentoTelecomEmbarcacao}" 
+                                target="_blank">
+                                <h:graphicImage value="resources/images/icons/Adobe_PDF_file_icon_24x24.png" />
+                            </p:link>
+                           
+                        </p:column>
+                        <p:column width="170">
+                            <f:facet name="header">
+                                <h:outputText value="Meios Salvacao"/>
+                            </f:facet>
+                            <p:link 
+                                href="/#{item.meioSalvacaoEmbarcacao}" 
+                                target="_blank">
+                                <h:graphicImage value="resources/images/icons/Adobe_PDF_file_icon_24x24.png" />
+                            </p:link>
+                            
+                        </p:column>
+                        <p:column width="170">
+                            <f:facet name="header">
+                                <h:outputText value="Meio Combate Incendio"/>
+                            </f:facet>
+                            <p:link 
+                                href="/#{item.meioCombateIncendioEmbarcacao}" 
+                                target="_blank">
+                                <h:graphicImage value="resources/images/icons/Adobe_PDF_file_icon_24x24.png" />
+                            </p:link>
+                            
+                        </p:column>
+                        <p:column width="170">
+                            <f:facet name="header">
+                                <h:outputText value="Meio Esgoto"/>
+                            </f:facet>
+                             <p:link 
+                                href="/#{item.meioEsgotoEmbarcacao}" 
+                                target="_blank">
+                                <h:graphicImage value="resources/images/icons/Adobe_PDF_file_icon_24x24.png" />
+                            </p:link>
+                            
+                        </p:column>
+                        <p:column width="170">
+                            <f:facet name="header">
+                                <h:outputText value="Declaracao Embarcacao"/>
+                            </f:facet>
+                            <p:link 
+                                href="/#{item.declaracaoEmbarcacao}" 
+                                target="_blank">
+                                <h:graphicImage value="resources/images/icons/Adobe_PDF_file_icon_24x24.png" />
+                            </p:link>
+                            
+                        </p:column>
+                        <p:column width="170">
+                            <f:facet name="header">
+                                <h:outputText value="Associacao Vinculada"/>
+                            </f:facet>
+                            <h:outputText value="#{item.embarcacoesPK.associacoesIdAssociacoes.nomeAssociacao}"/>
+                        </p:column>
+                    </p:dataTable>
+            </p:scrollPanel>
+           
+            
+        </h:form>
+    
+    </f:view>
+                  
+                  </div>
+
+
+
+
+
+
+          <!-- jQuery (necessary for Bootstrap's JavaScript plugins) 
+          <script src="resources/js/jquery-3.1.0.min.js"></script>-->
+          <!-- Include all compiled plugins (below), or include individual files as needed -->
+          <script src="resources/js/bootstrap.js"></script>
+
+        </div>
+        </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+  
+
+</html>

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"               
+      xmlns:h="http://xmlns.jcp.org/jsf/html"      
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions">
+    
+   <body>
+
+        <ui:composition template="Template.xhtml">
+
+            <ui:define name="content">
+                   <div class="jumbotron">
+          <div class="container">  
+              
+              
+        <div class="ui-fluid">
+              
+              <f:view>
+
+
+        <h:form enctype="multipart/form-data">
+        
+            <h1><h:outputText value="Listagem de Navegador de Recreio por Numero de Carta (ID Card)"/></h1>
+            
+               
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:messages autoUpdate="true" showDetail="true"/>
+                    <p:inputText id="idCard" 
+                                 value="#{navegadorRecreio.navegadorRecreio.numeroCartaNavegadorRecreio}"
+                                 required="true"
+                                 />
+            
+   
+                </p:toolbarGroup>  
+                <p:toolbarGroup>
+                   
+                     <p:separator/> 
+            
+   
+                </p:toolbarGroup> 
+            
+                
+                <p:toolbarGroup>
+                   
+              
+                  <p:commandButton value="Pesquisar" 
+                                   icon="ui-icon-check" 
+                                   action="#{navegadorRecreio.listarNavegadorRecreioPorNumeroCartaNavegadorRecreio()}"
+                                   update="listarNavegadoresRecreioPorNumeroCarta"/>
+   
+                </p:toolbarGroup> 
+                
+            </p:toolbar>
+               
+           
+                
+                <p:separator/>
+                
+                
+                
+                <p:dataTable value = "#{navegadorRecreio.listaNavegadorPorNumeroCarta}"
+                         var="item" 
+                         id="listarNavegadoresRecreioPorNumeroCarta" 
+                         paginator="true" 
+                         rows="1" 
+                         reflow="true"  
+                         scrollable="true">
+                
+                <!--
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Listagem Nr."/>
+                    </f:facet>
+                    <h:commandLink action="#{item.navegadorRecreio.getNavegadorRecreioPorListagemID(item)}" value="#{item.navegadorRecreioPK.idNavegadorRecreio}"/>
+                </p:column>
+                -->
+                
+                
+                
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Listagem Nr."/>
+                    </f:facet>
+                 <!--  <h:commandLink action="#{navegadorRecreio.showNavegadorRecreioPorListagemID(item)}" 
+                                   value="#{item.navegadorRecreioPK.idNavegadorRecreio}"/> -->
+                    
+                     <h:commandLink action="#{navegadorRecreio.showNavegadorRecreioPorListagemID(item)}" 
+                                 value="Consultar Cadastro" target="_blank"  />
+                                   
+                </p:column>
+                
+                 <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Gerar relatorio"/>
+                    </f:facet>
+                     
+                      
+             <p:link 
+                 href="http://localhost:43821/NavegadorRecreio-war/plugins/PDFServlet?idNavegadorRecreio=#{item.navegadorRecreioPK.idNavegadorRecreio}&amp;idCategoria=#{item.categoria.categoriaPK.idCategoria}&amp;comando=NAVEGADOR" 
+                 target="_blank">
+                 <h:graphicImage value="resources/images/icons/Adobe_PDF_file_icon_32x32.png" />
+             </p:link>
+                    
+                    <!-- 
+              <h:commandLink action="#{navegadorRecreio.showNavegadorRecreioPorBean(item.navegadorRecreioPK.idNavegadorRecreio)}" 
+                                
+                     
+                     value="Gerar relatorio" 
+                                 target="_blank"  />
+                                   -->
+                </p:column>
+               
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Nome Completo"/>
+                    </f:facet>
+                        <h:outputText value="#{item.nomeCompletoNavegadorRecreio}"/>
+                </p:column>
+                
+                <p:column id="cabecalhoIDNavegador" 
+                          filterBy="#{item.informacaoAdicional}" 
+                          sortBy="#{item.informacaoAdicional}">
+                    <f:facet name="header">
+                        <h:outputText value="Numero de Bilhete de Identidade"/>
+                    </f:facet>
+                    <h:outputText value="#{item.informacaoAdicional}"/>
+                </p:column>
+                
+                <!--
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Morada"/>
+                    </f:facet>
+                    <h:outputText value="#{item.moradaNavegadorRecreio}"/>
+                </p:column>
+                -->
+                <p:column id="cabecalhoCarta" 
+                          filterBy="#{item.numeroCartaNavegadorRecreio}" 
+                          sortBy="#{item.numeroCartaNavegadorRecreio}">
+                    <f:facet name="header">
+                        <h:outputText value="Numero da Carta"/>
+                    </f:facet>
+                    <h:outputText value="#{item.numeroCartaNavegadorRecreio}"/>
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Data de Validade"/>
+                    </f:facet>
+                    <h:outputText value="#{item.dataValidadeCartaNavegadorRecreio}">
+                        <f:convertDateTime pattern="dd/MM/yyyy" />
+                    </h:outputText>
+                </p:column>
+                <!--
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Foto do Navegador"/>
+                    </f:facet>-->
+         <!--<o:graphicImage value="#{navegadorRecreio.byteToImage(item.fotoNavegadorRecreio)}"  dataURI="true"/> -->
+                <!--    <o:graphicImage value="#{item.fotoNavegadorRecreio}" 
+                                    dataURI="true" 
+                                    width="120px" 
+                                    height="90px"  />
+                </p:column>
+                -->
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Categoria"/>
+                    </f:facet>
+                    <h:outputText value="#{item.categoria.categoriaCategoriaNavegadorRecreio}"/>
+                 <!--Pegar o numero da categoria com esta instrucao: #{item.categoria.categoriaPK.idCategoria} :  -->
+                </p:column>
+            </p:dataTable>
+            
+           
+            
+        </h:form>
+    
+    </f:view>
+                  
+                  </div>
+
+
+
+
+
+
+          <!-- jQuery (necessary for Bootstrap's JavaScript plugins) 
+          <script src="resources/js/jquery-3.1.0.min.js"></script>-->
+          <!-- Include all compiled plugins (below), or include individual files as needed -->
+          <script src="resources/js/bootstrap.js"></script>
+
+        </div>
+        </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+  
+
+</html>

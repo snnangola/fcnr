@@ -1,0 +1,27 @@
+
+.jumbotron {
+    background-color:#7F8C8D!important; 
+    padding-top: 140px;
+    padding-bottom: 60px;
+    margin-left: 70px;
+    margin-bottom: 30px;
+    margin-right: 70px;
+
+
+}
+.jumbotron h1{
+    color: #fff;
+}
+.jumbotron h3{
+    color: #fff;
+}
+
+.jumbotron p{
+    color: #2C3E50;
+}
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  color: #262626;
+  text-decoration: none;
+  background-color: #7F8C8D;
+}

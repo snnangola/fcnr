@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"               
+      xmlns:h="http://xmlns.jcp.org/jsf/html"      
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions">
+    
+   
+  <body>
+
+        <ui:composition template="Template.xhtml">
+
+            <ui:define name="content">
+                   <div class="jumbotron" >
+          <div class="container" >   
+        <div class="ui-fluid">
+            
+<!--   <p:layout style="width:900px;height:800px">
+          <p:layoutUnit position="north" style="border-color: transparent" ></p:layoutUnit>
+
+    <p:layoutUnit position="center" id="centro" style="border-color: transparent; height: 2000px"> -->
+               
+ <h1><h:outputText value="Cadastrar Navegador de Recreio"/></h1>
+ 
+         <f:view>
+           <h:form enctype="multipart/form-data">
+        <p:accordionPanel value="Registo de Navegadores de Recreio" id="painel" multiple="true">       
+                     
+            <p:tab closable="yes" 
+                   id="dadosprincipais" 
+                   title="1 - Dados Principais" 
+                   titletip="Dados Principais" 
+                   titleStyle="color: #000000;text-shadow: 0px 0px 0px #000000"  >
+                <p:focus/>
+               <!-- <p:messages autoUpdate="true" /> -->
+                <p:panelGrid 
+                    columns="3" 
+                    id="painel1" 
+                    layout="grid">
+
+          <p:outputLabel value="Nome Completo: " for="nomeCompletoNavegadorRecreio" />
+                <p:inputText id="nomeCompletoNavegadorRecreio" 
+                             value="#{navegadorRecreio.navegadorRecreio.nomeCompletoNavegadorRecreio}" 
+                             title="NomeCompletoNavegadorRecreio" 
+                             required="true"  
+                             size="40" >
+                  <f:validateLength minimum="4" maximum="50"  />
+                  <p:clientValidator event="keyup"/>
+                  <p:ajax update="nomeCompletoNavegadorRecreio"  />
+                </p:inputText>
+          <p:message for="nomeCompletoNavegadorRecreio"  display="both" />
+                
+                <p:outputLabel value="ID(Bilhete, Nr Fiscal ou Passaporte):" for="informacaoAdicional"/>
+                    <p:inputText value="#{navegadorRecreio.navegadorRecreio.informacaoAdicional}"  
+                                     title="ID do Requerente" 
+                                     required="true" 
+                                     size="40"
+                                     id="informacaoAdicional" >
+                    <f:validateLength minimum="3" maximum="25"/>
+                    <p:clientValidator event="keyup"/>
+                    <p:ajax update="informacaoAdicional" />
+                     </p:inputText>    
+                <p:message for="informacaoAdicional" display="both" />
+              
+                <p:outputLabel value="Morada: " for="moradaNavegadorRecreio" />
+                <p:inputText id="moradaNavegadorRecreio" 
+                             value="#{navegadorRecreio.navegadorRecreio.moradaNavegadorRecreio}" 
+                             title="MoradaNavegadorRecreio" 
+                             required="true" 
+                             size="40" >
+                  <f:validateLength minimum="4" maximum="40"  />
+                  <p:clientValidator event="keyup"/>
+                  <p:ajax update="moradaNavegadorRecreio"/>
+                </p:inputText>
+                <p:message for="moradaNavegadorRecreio" display="both" />
+
+                <p:outputLabel value="Numero da Carta: " for="numeroCartaNavegadorRecreio" />
+                <p:inputText id="numeroCartaNavegadorRecreio" 
+                             value="#{navegadorRecreio.navegadorRecreio.numeroCartaNavegadorRecreio}" 
+                             title="NumeroCartaNavegadorRecreio" 
+                             required="true" 
+                             size="10">
+                   <f:validateLength minimum="4" />
+                   <p:clientValidator event="keyup"/>
+                   <p:ajax update="numeroCartaNavegadorRecreio"/>
+                   
+                </p:inputText>
+                <p:message for="numeroCartaNavegadorRecreio" display="both" />
+
+                <p:outputLabel value="Data de Validade: " 
+                               for="dataValidadeCartaNavegadorRecreio" />
+                
+                
+                <p:calendar id="dataValidadeCartaNavegadorRecreio" 
+                            value="#{navegadorRecreio.navegadorRecreio.dataValidadeCartaNavegadorRecreio}" 
+                            pattern="dd/MM/yyyy" 
+                            title="DataValidadeCartaNavegadorRecreio" 
+                            mode="popup"  
+                            locale="pt"
+                            showOn="button" 
+                            navigator="true"
+                            size="10"  />
+              <p:message for="dataValidadeCartaNavegadorRecreio" display="both" />
+             
+           
+
+                <p:outputLabel value="Foto: " for="fotoNavegadorRecreio" />
+                <p:fileUpload id="fotoNavegadorRecreio" 
+                             value="#{navegadorRecreio.navegadorRecreio.fotoUpload}" 
+                             mode="simple" 
+                             skinSimple="true"
+                             required="true" 
+                             sizeLimit="16000000"
+                             invalidSizeMessage="Tamanho do arquivo superior a 16 MegaBytes."
+                             allowTypes="/(\.|\/)(jpe?g|png)$/"
+                             
+                     />
+               <p:message for="fotoNavegadorRecreio" display="both" />
+                 
+                <p:outputLabel value="Categoria: " for="categoria" />
+                <p:selectOneMenu id="categoria" 
+                                 value="#{navegadorRecreio.navegadorRecreio.pegaCategoria}" 
+                                 title="Categoria" 
+                                 required="true" 
+                                 requiredMessage="The Categoria field is required."
+                                 converter="omnifaces.SelectItemsConverter"
+                                  >
+                    <f:selectItems value="#{navegadorRecreio.categorias}"/>
+                </p:selectOneMenu>
+                <p:message for="categoria" display="both" />
+               
+            
+        </p:panelGrid>   
+
+         </p:tab>   
+
+
+        <p:tab  closable="yes" 
+                id="documentacao" 
+                title="2 - Anexar Documentacao" 
+                titletip="Anexar Documentacao" 
+                titleStyle="color: #000000;text-shadow: 0px 0px 0px #000000"  >
+
+                <!-- Dados anexos -->
+       
+
+                <p:panelGrid columns="3" 
+                             layout="grid">		
+		<p:outputLabel value="Copia do Bilhete de Identidade:" for="copiaDoBI" />
+                <p:fileUpload id="copiaDoBI" 
+                              value="#{navegadorRecreio.navegadorRecreio.copiaBiUpload}" 
+                             mode="simple"          
+                             skinSimple="true" 
+                             required="true" 
+                             requiredMessage="Obrigatorio submeter copia do Bilhete de Identidade."
+                             sizeLimit="16000000"
+                             invalidSizeMessage="Tamanho do arquivo superior a 16 MegaBytes"
+                             allowTypes="/(\.|\/)(pdf)$/"
+                             >
+                     
+                </p:fileUpload>
+                <p:message for="copiaDoBI" display="both" />
+
+        <p:outputLabel value="Copia do Cartao de Contribuinte:" for="copiaCartaoContribuinte" />
+                <p:fileUpload id="copiaCartaoContribuinte" 
+                              value="#{navegadorRecreio.navegadorRecreio.copiaCartaoContribuinteUpload}" 
+                             mode="simple" 
+                             skinSimple="true" 
+                             required="true" 
+                             requiredMessage="Obrigatorio submeter copia do Cartao de Contribuinte."
+                             sizeLimit="16000000"
+                             invalidSizeMessage="Tamanho do arquivo superior a 16 MegaBytes"
+                             allowTypes="/(\.|\/)(pdf)$/"
+                             
+                             />
+                <p:message for="copiaCartaoContribuinte" display="both" />
+
+        <p:outputLabel value="Recibo de Pgto Taxa de Inscricao:" for="reciboPagamentoTaxaInscricao" />
+                <p:fileUpload id="reciboPagamentoTaxaInscricao" 
+                              value="#{navegadorRecreio.navegadorRecreio.reciboPagamentoTaxaInscricaoUpload}" 
+                             mode="simple" 
+                             skinSimple="true"
+                             required="true" 
+                             requiredMessage="Obrigatorio submeter copia do Recibo Pagamento Taxa Inscricao."
+                             sizeLimit="16000000"
+                             invalidSizeMessage="Tamanho do arquivo superior a 16 MegaBytes"
+                             allowTypes="/(\.|\/)(pdf)$/"
+                          
+                             />
+                <p:message for="reciboPagamentoTaxaInscricao" display="both" />
+
+        <p:outputLabel value="Atestado Medico:" for="atestadoMedico" />
+                <p:fileUpload id="atestadoMedico" 
+                              value="#{navegadorRecreio.navegadorRecreio.atestadoMedicoUpload}" 
+                             mode="simple" 
+                             skinSimple="true"
+                             required="true" 
+                             requiredMessage="Obrigatorio submeter copia do Atestado Medico."
+                             sizeLimit="16000000"
+                             invalidSizeMessage="Tamanho do arquivo superior a 16 MegaBytes"
+                             allowTypes="/(\.|\/)(pdf)$/"
+                            
+                             />
+                <p:message for="atestadoMedico" display="both" />
+
+        <p:outputLabel value="Autorizacao dos Pais ou Tutor:" for="autorizacaoTutor" />
+                <p:fileUpload id="autorizacaoTutor" 
+                              value="#{navegadorRecreio.navegadorRecreio.autorizacaoTutorUpload}" 
+                             mode="simple" 
+                             skinSimple="true"
+                             required="false" 
+                             requiredMessage="Obrigatorio submeter copia de Autorizacao Pais ou Tutor."
+                             sizeLimit="16000000"
+                             invalidSizeMessage="Tamanho do arquivo superior a 16 MegaBytes"
+                             allowTypes="/(\.|\/)(pdf)$/"
+                            
+                             />
+                <p:message for="autorizacaoTutor" display="both" />
+
+        <p:outputLabel value="Declaracao Curso Frequentado:" for="declaracaoFormacao" />
+                <p:fileUpload id="declaracaoFormacao" 
+                              value="#{navegadorRecreio.navegadorRecreio.declaracaoFormacaoUpload}" 
+                             mode="simple" 
+                             skinSimple="true"
+                             required="true" 
+                             requiredMessage="Obrigatorio submeter copia de Declaracao de curso frequentado."
+                             sizeLimit="16000000"
+                             invalidSizeMessage="Tamanho do arquivo superior a 16 MegaBytes"
+                             allowTypes="/(\.|\/)(pdf)$/"
+                             
+                             />
+                <p:message for="declaracaoFormacao" display="both" />
+         </p:panelGrid>
+                 
+
+			<!-- Dados anexos -->
+        </p:tab>
+
+
+<p:tab closable="yes" 
+       id="dadosadicionais" 
+       title="3 - Finalizar Processo" 
+       titletip="Finalizar Processo" 
+       titleStyle="color: #000000;text-shadow: 0px 0px 0px #000000" >
+
+        
+    <p:panelGrid columns="2"  
+                 layout="grid">
+                    <p:outputLabel value="Correio Electronico:" for="email"/>
+                    <p:inputText value="#{navegadorRecreio.navegadorRecreio.email}" 
+                                 label="Email"
+                                 id="email"
+                                 size="30" />
+                
+ 
+                    <p:outputLabel value="Telefone: " for="telefone"/>
+                    <p:inputMask value="#{navegadorRecreio.navegadorRecreio.telefone}" 
+                                 mask="999-999-999"
+                                 label="telefone"
+                                 id="telefone" />
+                    
+                    <f:facet name="footer">
+                    <p:commandButton    id="insert" 
+                                        value="Registrar" 
+                                        update="painel"
+                                        action="#{navegadorRecreio.inserirNavegadorRecreio()}" 
+                                        icon="ui-icon-check" 
+                                        ajax="false"  
+                                        validateClient="true"/>
+             
+                    </f:facet>
+
+        
+                </p:panelGrid>
+                      
+</p:tab>
+
+                </p:accordionPanel>
+          <!--     <p:messages  showDetail="true" id="validacao" /> -->
+          
+         
+          
+                    </h:form> 
+                
+              
+                
+                </f:view>
+    </div>
+    
+                        
+       
+                      
+ <!-- </p:layoutUnit> -->
+          
+ <!--   <p:layoutUnit position="south" visible="false">
+        
+
+    </p:layoutUnit>  
+
+//more layout units
+</p:layout>             -->
+
+
+          <!-- jQuery (necessary for Bootstrap's JavaScript plugins) 
+          <script src="resources/js/jquery-3.1.0.min.js"></script>-->
+          <!-- Include all compiled plugins (below), or include individual files as needed -->
+          <script src="resources/js/bootstrap.js"></script>
+
+        </div>
+        </div>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
